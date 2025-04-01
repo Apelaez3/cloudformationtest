@@ -1,0 +1,76 @@
+AWSTemplateFormatVersion: '2010-09-09'
+Description: 'Deploy a Site-to-Site VPN with a Customer Gateway'
+
+Parameters:
+  VpcId:
+    Type: String
+    Description: 'ID de la VPC'
+  CustomerGatewayIp:
+    Type: String
+    Description: 'IP pública del Customer Gateway'
+  LocalNetworkCidr:
+    Type: String
+    Description: 'Rango de direcciones IP de la red local'
+  BgpAsn:
+    Type: String
+    Description: 'Número ASN para BGP'
+
+Resources:
+  #  Customer Gateway (CGW)
+  CustomerGateway:
+    Type: AWS::EC2::CustomerGateway
+    Properties:
+      BgpAsn: !Ref BgpAsn
+      IpAddress: !Ref CustomerGatewayIp
+      Type: "ipsec.1"
+      Tags:
+        - Key: Name
+          Value: MyCustomerGateway
+
+  #  Virtual Private Gateway (VGW)
+  VirtualPrivateGateway:
+    Type: AWS::EC2::VPNGateway
+    Properties:
+      Type: "ipsec.1"
+      Tags:
+        - Key: Name
+          Value: MyVGW
+
+  #  Attach VGW to VPC
+  VGWAttachment:
+    Type: AWS::EC2::VPCGatewayAttachment
+    Properties:
+      VpcId: !Ref VpcId
+      VpnGatewayId: !Ref VirtualPrivateGateway
+
+  #  VPN Connection
+  VPNConnection:
+    Type: AWS::EC2::VPNConnection
+    Properties:
+      CustomerGatewayId: !Ref CustomerGateway
+      VpnGatewayId: !Ref VirtualPrivateGateway
+      Type: "ipsec.1"
+      StaticRoutesOnly: true
+      Tags:
+        - Key: Name
+          Value: MyVPNConnection
+
+  #  VPN Static Route para dirigir tráfico desde AWS a la red local
+  VPNConnectionRoute:
+    Type: AWS::EC2::VPNConnectionRoute
+    Properties:
+      DestinationCidrBlock: !Ref LocalNetworkCidr
+      VpnConnectionId: !Ref VPNConnection
+
+Outputs:
+  CustomerGatewayID:
+    Description: "ID del Customer Gateway"
+    Value: !Ref CustomerGateway
+
+  VirtualPrivateGatewayID:
+    Description: "ID del Virtual Private Gateway"
+    Value: !Ref VirtualPrivateGateway
+
+  VPNConnectionID:
+    Description: "ID de la VPN Connection"
+    Value: !Ref VPNConnection

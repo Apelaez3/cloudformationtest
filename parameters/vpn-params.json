@@ -1,0 +1,18 @@
+[
+    {
+    "ParameterKey": "VpcId",
+    "ParameterValue": "vpc-0102e55cec443f704"  
+    },
+    {
+    "ParameterKey": "CustomerGatewayIp",
+    "ParameterValue": "152.203.7.233" 
+    },
+    {
+    "ParameterKey": "LocalNetworkCidr",
+    "ParameterValue": "172.16.0.0/16"  
+    },
+    {
+    "ParameterKey": "BgpAsn",
+    "ParameterValue": "65000" 
+    }
+]

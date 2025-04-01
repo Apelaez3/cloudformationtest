@@ -1,0 +1,42 @@
+[
+    {
+    "ParameterKey": "VpcId",
+    "ParameterValue": "vpc-0102e55cec443f704"
+    },
+    {
+    "ParameterKey": "PublicSubnet1Id",
+    "ParameterValue": "subnet-09f6cb5b6d25ee9f7"
+    },
+    {
+    "ParameterKey": "PublicSubnet2Id",
+    "ParameterValue": "subnet-04cef212c0791a096"
+    },
+    {
+    "ParameterKey": "KeyName",
+    "ParameterValue": "MiClaveEC2"
+    },
+    {
+    "ParameterKey": "Instance1ImageId",
+    "ParameterValue": "ami-071226ecf16aa7d96"
+    },
+    {
+    "ParameterKey": "Instance2ImageId",
+    "ParameterValue": "ami-071226ecf16aa7d96"
+    },
+    {
+    "ParameterKey": "Instance3ImageId",
+    "ParameterValue": "ami-071226ecf16aa7d96"
+    },
+    {
+    "ParameterKey": "Instance1PrivateIp",
+    "ParameterValue": "10.0.0.10"
+    },
+    {
+    "ParameterKey": "Instance2PrivateIp",
+    "ParameterValue": "10.0.1.10"
+    },
+    {
+    "ParameterKey": "Instance3PrivateIp",
+    "ParameterValue": "10.0.1.11"
+    }
+]

@@ -1,0 +1,121 @@
+AWSTemplateFormatVersion: "2010-09-09"
+Description: Plantilla de CloudFormation para recursos de cómputo (Instancias EC2, Grupos de Seguridad)
+
+Parameters:
+  VpcId:
+    Type: String
+    Description: ID de la VPC (de la pila NetworkingStack)
+
+  PublicSubnet1Id:
+    Type: String
+    Description: ID de la Subred Pública 1 (de la pila NetworkingStack)
+
+  PublicSubnet2Id:
+    Type: String
+    Description: ID de la Subred Pública 2 (de la pila NetworkingStack)
+
+  KeyName:
+    Type: AWS::EC2::KeyPair::KeyName
+    Description: Nombre de un KeyPair EC2 existente para acceso SSH a las instancias
+
+  Instance1ImageId:
+    Type: String
+    Default: ami-0c55b250cb30953c9 # Reemplaza con un AMI de Amazon Linux 2 válido en us-east-1
+    Description: AMI para la Instancia 1
+
+  Instance2ImageId:
+    Type: String
+    Default: ami-0c55b250cb30953c9 # Reemplaza con un AMI de Amazon Linux 2 válido en us-east-1
+    Description: AMI para la Instancia 2
+
+  Instance3ImageId:
+    Type: String
+    Default: ami-0c55b250cb30953c9 # Reemplaza con un AMI de Amazon Linux 2 válido en us-east-1
+    Description: AMI para la Instancia 3
+
+  Instance1PrivateIp:
+    Type: String
+    Description: Dirección IP privada para la Instancia 1
+
+  Instance2PrivateIp:
+    Type: String
+    Description: Dirección IP privada para la Instancia 2
+
+  Instance3PrivateIp:
+    Type: String
+    Description: Dirección IP privada para la Instancia 3
+
+Resources:
+  InstanceSecurityGroup:
+    Type: AWS::EC2::SecurityGroup
+    Properties:
+      GroupDescription: Permite acceso SSH y HTTP
+      VpcId: !Ref VpcId
+      SecurityGroupIngress:
+        - IpProtocol: tcp
+          FromPort: 22
+          ToPort: 22
+          CidrIp: 0.0.0.0/0
+        - IpProtocol: tcp
+          FromPort: 80
+          ToPort: 80
+          CidrIp: 0.0.0.0/0
+
+  Instance1:
+    Type: AWS::EC2::Instance
+    Properties:
+      ImageId: !Ref Instance1ImageId
+      InstanceType: t2.micro
+      KeyName: !Ref KeyName
+      SubnetId: !Ref PublicSubnet1Id
+      PrivateIpAddress: !Ref Instance1PrivateIp
+      SecurityGroupIds:
+        - !Ref InstanceSecurityGroup
+      Tags:
+        - Key: Name
+          Value: Instancia1
+
+  Instance2:
+    Type: AWS::EC2::Instance
+    Properties:
+      ImageId: !Ref Instance2ImageId
+      InstanceType: t2.micro
+      KeyName: !Ref KeyName
+      SubnetId: !Ref PublicSubnet2Id
+      PrivateIpAddress: !Ref Instance2PrivateIp
+      SecurityGroupIds:
+        - !Ref InstanceSecurityGroup
+      Tags:
+        - Key: Name
+          Value: Instancia2
+
+  Instance3:
+    Type: AWS::EC2::Instance
+    Properties:
+      ImageId: !Ref Instance3ImageId
+      InstanceType: t2.micro
+      KeyName: !Ref KeyName
+      SubnetId: !Ref PublicSubnet2Id
+      PrivateIpAddress: !Ref Instance3PrivateIp
+      SecurityGroupIds:
+        - !Ref InstanceSecurityGroup
+      Tags:
+        - Key: Name
+          Value: Instancia3
+
+Outputs:
+  InstanceSecurityGroupId:
+    Value: !Ref InstanceSecurityGroup
+    Description: ID del Grupo de Seguridad de las Instancias
+
+  Instance1Id:
+    Value: !Ref Instance1
+    Description: ID de la Instancia 1
+
+  Instance2Id:
+    Value: !Ref Instance2
+    Description: ID de la Instancia 2
+
+  Instance3Id:
+    Value: !Ref Instance3
+    Description: ID de la Instancia 3

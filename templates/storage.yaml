@@ -1,0 +1,40 @@
+AWSTemplateFormatVersion: "2010-09-09"
+Description: Plantilla de CloudFormation para recursos de almacenamiento (S3, DynamoDB)
+
+Parameters:
+  S3BucketName:
+    Type: String
+    Description: Nombre del bucket S3
+
+  DynamoDBTableName:
+    Type: String
+    Description: Nombre de la tabla DynamoDB
+
+Resources:
+  S3Bucket:
+    Type: AWS::S3::Bucket
+    Properties:
+      BucketName: !Ref S3BucketName
+
+  DynamoDBTable:
+    Type: AWS::DynamoDB::Table
+    Properties:
+      TableName: !Ref DynamoDBTableName
+      AttributeDefinitions:
+        - AttributeName: Id
+          AttributeType: S
+      KeySchema:
+        - AttributeName: Id
+          KeyType: HASH
+      ProvisionedThroughput:
+        ReadCapacityUnits: 5
+        WriteCapacityUnits: 5
+
+Outputs:
+  S3BucketNameOutput:
+    Value: !Ref S3Bucket
+    Description: Nombre del bucket S3
+
+  DynamoDBTableNameOutput:
+    Value: !Ref DynamoDBTable
+    Description: Nombre de la tabla DynamoDB
