@@ -4,21 +4,8 @@ Este repositorio contiene plantillas de CloudFormation para desplegar diversos r
 
 ## Estructura del Repositorio
 
-cloudformation-project/
-├── README.md
-├── parameters/
-│   ├── compute-params.json
-│   ├── networking-params.json
-│   ├── storage-params.json
-│   └── vpn-params.json
-├── scripts/
-│   ├── deploy.sh (Placeholder)
-│   └── destroy.sh (Placeholder)
-└── templates/
-├── compute.yaml
-├── networking.yaml
-├── storage.yaml
-└── vpn.yaml
+![image](https://github.com/user-attachments/assets/7faa72e3-005a-4c72-91b0-a73117e9daee)
+
 
 **`README.md`**: Este archivo, que proporciona información general sobre el proyecto.
 * **`parameters/`**: Contiene archivos JSON con los parámetros necesarios para cada stack.
