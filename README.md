@@ -2,6 +2,9 @@
 
 Este repositorio contiene plantillas de CloudFormation para desplegar diversos recursos en AWS, organizados en diferentes "stacks" (pilas). Cada stack se enfoca en un conjunto específico de recursos, permitiendo la modularidad y la fácil gestión de tu infraestructura.
 
+![image](https://github.com/user-attachments/assets/efb3994d-3aa1-466c-baa8-7ba8d96d26bb)
+
+
 ## Estructura del Repositorio
 
 ![image](https://github.com/user-attachments/assets/7faa72e3-005a-4c72-91b0-a73117e9daee)
